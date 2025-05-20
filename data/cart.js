@@ -57,3 +57,28 @@ export function addToCart(productId) {
     saveToStorage(); // When you update cart save into local storage
 
   }
+
+
+  export function calculateCartQuantity() {
+    let cartQuantity = 0;
+  
+    cart.forEach((cartItem) => {
+      cartQuantity += cartItem.quantity
+    });
+
+    return cartQuantity;
+  }
+
+
+export function updateQuantity(productId, newQuantity) {
+    let marchingItem;
+
+    cart.forEach((cartItem) => {
+        if (productId === cartItem.productId) {
+            marchingItem = cartItem
+        }
+    })
+    marchingItem.quantity = newQuantity;
+
+    saveToStorage();
+}
