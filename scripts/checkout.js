@@ -1,4 +1,4 @@
-import { cart, removeFromCart, updateQuantity } from "../data/cart.js";
+import { cart, removeFromCart, updateQuantity, updateDeliveryOption } from "../data/cart.js";
 import { products } from "../data/products.js";
 import { formatCurrency } from "./utils/money.js";
 import { calculateCartQuantity } from "../data/cart.js";
@@ -112,7 +112,7 @@ function deliveryOptionsHTML(marchingProduct, cartItem) {
       : `$${formatCurrency(deliveryOption.priceCents)} - Shipping`; */
 
     html +=`
-      <div class="delivery-option">
+      <div class="delivery-option js-delvery-option"data-product-id="${marchingProduct.id}" data-delivery-option-id="${deliveryOption.id}">
         <input type="radio" 
         ${isChecked ? 'checked' : ''}
           class="delivery-option-input"
@@ -201,6 +201,15 @@ document.querySelectorAll('.js-save-quantity-link')
   });
     
 });
+
+
+document.querySelectorAll('.js-delvery-option')
+  .forEach((button) => {
+    button.addEventListener('click', () => {
+      const {productId, deliveryOptionId} = button.dataset
+      updateDeliveryOption(productId, deliveryOptionId)
+    })
+  })
   
 
 
