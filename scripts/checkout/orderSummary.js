@@ -1,8 +1,7 @@
 import { cart, removeFromCart, updateQuantity, calculateCartQuantity, updateDeliveryOption } from "../../data/cart.js";
 import { products, getProduct } from "../../data/products.js";
 import { formatCurrency } from "../utils/money.js";
-import dayjs from 'https://unpkg.com/supersimpledev@8.5.0/dayjs/esm/index.js';
-import { deliveryOptions, getDeliveryOption } from "../../data/deliveryOptions.js";
+import { deliveryOptions, getDeliveryOption, calculateDeliveryDate } from "../../data/deliveryOptions.js";
 import { renderPaymentSummary } from "./paymentSummary.js";
 
 
@@ -19,9 +18,7 @@ export function renderOrderSummary() {
       
       const deliveryOption = getDeliveryOption(deliveryOptionId);
 
-      const today = dayjs(); // Getting todays date
-      const deliveryDate = today.add(deliveryOption.deliveryDays, 'days') // getting the delivery date with consideration of all the three options
-      const dateString = deliveryDate.format('dddd, MMMM DD') // converting it to a more presentable and readbale format
+      const dateString = calculateDeliveryDate(deliveryOption);
 
       cartSummaryHTML +=`
 
@@ -76,9 +73,8 @@ export function renderOrderSummary() {
 
     deliveryOptions.forEach((deliveryOption) => {
 
-      const today = dayjs(); // Getting todays date
-      const deliveryDate = today.add(deliveryOption.deliveryDays, 'days') // getting the delivery date with consideration of all the three options
-      const dateString = deliveryDate.format('dddd, MMMM DD') // converting it to a more presentable and readbale format
+      
+      const dateString = calculateDeliveryDate(deliveryOption)
 
 
       // Getting the price string for every selected payment option
@@ -147,7 +143,6 @@ export function renderOrderSummary() {
           .innerHTML = `${cartQuantity} Items`
 
     }
-    
 
   document.querySelectorAll('.js-update-quantity-link')
     .forEach((link) => {
