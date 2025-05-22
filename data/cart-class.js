@@ -1,15 +1,15 @@
 class Cart {
     cartItems;
-    localStorageKey;
+    #localStorageKey; // Making properties private to only be able to be used inside the class
 
     constructor(localStorageKey) {
-        this.localStorageKey = localStorageKey;
-        this.loadFromStorage();
+        this.#localStorageKey = localStorageKey;
+        this.#loadFromStorage();
 
     }
 
-    loadFromStorage() {
-        this.cartItems = JSON.parse(localStorage.getItem(this.localStorageKey)); // Retreaving the cart values as stored in the local storage
+    #loadFromStorage() { // Making the method private preventing access from outside the class
+        this.cartItems = JSON.parse(localStorage.getItem(this.#localStorageKey)); // Retreaving the cart values as stored in the local storage
     
     
         if (!this.cartItems) { // When the site is loaded and the cart is empty, provide the default values as described by the array
@@ -120,6 +120,7 @@ class Cart {
 const cart = new Cart('cart-oop');
 const businessCart = new Cart('cart-business');
 
+// cart.#localStorageKey = 'test';   // Does't work because the property is private therefore caanot be accessed outside the class
 
 
 console.log(cart);
