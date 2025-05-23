@@ -1,13 +1,27 @@
 import { renderOrderSummary } from "./checkout/orderSummary.js";
 import { renderPaymentSummary } from "./checkout/paymentSummary.js";
-import { loadProducts } from "../data/products.js";
+import { loadProducts, loadProductsFetch } from "../data/products.js";
 import { loadCart } from "../data/cart.js";
 // import '../data/cart-class.js'
 // import '../data/backend-practice.js'
 
 
-// Using Promise
+Promise.all([
+    
+    loadProductsFetch(),
+    
+    new Promise((resolve) => {
+        loadCart(() => {
+            resolve();
+        })
+    })
+]).then(() => {
+    renderOrderSummary();
+    renderPaymentSummary();
+})
 
+
+// Using Promise.all to load all the promises at onces and then render the display.
 
 Promise.all([
     new Promise((resolve) => { // Initiate a promise
@@ -25,6 +39,7 @@ Promise.all([
     renderPaymentSummary();
 })
 
+// Using Promise
 /*
 new Promise((resolve) => { // Initiate a promise
     loadProducts(() => { // Run the function you want to run
