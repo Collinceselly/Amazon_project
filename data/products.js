@@ -70,13 +70,14 @@ console.log(date.toLocaleTimeString())
 console.log(date.toLocaleDateString())*/
 
 
+// Getting the products from a backend or API
 export let products = [];
 
 export function loadProducts(fun) {
   const xhr = new XMLHttpRequest();
 
   xhr.addEventListener('load', () => {
-    products = JSON.parse(xhr.response).map((productDetails) => {
+    products = JSON.parse(xhr.response).map((productDetails) => { // Convert the JSON file into objects
       if (productDetails.type === 'Clothing') {
         return new Clothing(productDetails);
       }
@@ -86,7 +87,7 @@ export function loadProducts(fun) {
     console.log('load products');
     fun();
   });
-  xhr.open('GET', 'https://supersimplebackend.dev/products');
+  xhr.open('GET', 'https://supersimplebackend.dev/products'); // The products url or endpoint
   xhr.send();
 }
 
