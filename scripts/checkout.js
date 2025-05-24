@@ -8,15 +8,20 @@ import { loadCart } from "../data/cart.js";
 
 // Using async and await functionalities which are the best way to load data from a backend and render on a page.
 async function loadPage() {
-
-    await loadProductsFetch(); // Await waits for the loadProductFetch to finish execution before running the next step, it is a replacement for .then when using async.
+    try { // Used for catching error on code that could probably cause an error
+        await loadProductsFetch(); // Await waits for the loadProductFetch to finish execution before running the next step, it is a replacement for .then when using async.
     
-    await new Promise((resolve) => {
-        loadCart(() => {
-            resolve();
+        await new Promise((resolve) => {
+            loadCart(() => {
+                resolve();
+            })
         })
-    })
+    }
 
+    catch (error) { // Catch the error and display it
+        console.log('Unexpected error. Please tyr again later!')
+    }
+    
     renderOrderSummary();
     renderPaymentSummary();
 

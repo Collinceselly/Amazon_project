@@ -5,7 +5,7 @@ import { calculateCartQuantity } from "../data/cart.js";
 
 loadProducts(renderProductsGrid);
 
-cartQuantityOnPageLoad()
+cartQuantityOnPageLoad();
 
 function renderProductsGrid() {
 
@@ -125,4 +125,5 @@ function renderProductsGrid() {
     
         document.querySelector('.js-cart-quantity-display-on-page-load').innerHTML = cartQuantity;
       }
+      cartQuantityOnPageLoad();
   }
