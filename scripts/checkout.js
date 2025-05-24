@@ -6,10 +6,29 @@ import { loadCart } from "../data/cart.js";
 // import '../data/backend-practice.js'
 
 
+// Using async and await functionalities which are the best way to load data from a backend and render on a page.
+async function loadPage() {
+
+    await loadProductsFetch(); // Await waits for the loadProductFetch to finish execution before running the next step, it is a replacement for .then when using async.
+    
+    await new Promise((resolve) => {
+        loadCart(() => {
+            resolve();
+        })
+    })
+
+    renderOrderSummary();
+    renderPaymentSummary();
+
+}
+loadPage()
+
+
+/*
 Promise.all([
     
     loadProductsFetch(),
-    
+
     new Promise((resolve) => {
         loadCart(() => {
             resolve();
@@ -37,7 +56,7 @@ Promise.all([
 ]).then(() => {
     renderOrderSummary();
     renderPaymentSummary();
-})
+}) */
 
 // Using Promise
 /*
@@ -59,12 +78,13 @@ new Promise((resolve) => { // Initiate a promise
 
 // Using a callback - function
 
+/*
 loadProducts(() => {
     loadCart(() => {
         renderOrderSummary();
         renderPaymentSummary();
 
     });
-});
+}); */
 
   
