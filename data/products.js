@@ -70,7 +70,7 @@ console.log(date.toLocaleTimeString())
 console.log(date.toLocaleDateString())*/
 
 
-// Getting the products from a backend or API
+// Getting the products from a backend or API using fetch
 export let products = [];
 
 export function loadProductsFetch() {
@@ -99,6 +99,8 @@ loadProductsFetch().then(() => {
   console.log('Next Step');
 
 }); */
+
+
 
 
 export function loadProducts(fun) {
